@@ -1,0 +1,8 @@
+#
+# This file declares the operation methods to add to Apache SIS.
+#
+org.opengis.testbed.T18D025.methods.TimeDependentLongitudeRotation
+org.opengis.testbed.T18D025.methods.TrajectoryToConventionalFrame
+org.opengis.testbed.T18D025.methods.SphericalToGeographic
+org.opengis.testbed.T18D025.methods.ToCircularOrbit
+org.opengis.testbed.T18D025.methods.PoseIrregularSeries

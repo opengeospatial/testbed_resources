@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:Conversion xsi:schemaLocation = "http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+                xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                gml:id             = "PoseToRoboticArm">
+  <!--
+    This GML file implements a GeoPose scenario defining the reference frame of the extremity of a robotic arm.
+    The arm position is given by (yaw, pitch, roll) parameter values, with different set of values specified for
+    different time step. The parameters are listed in annex A of TB18 D025 engineering report.
+  -->
+  <gml:identifier codeSpace="TB18-D025">PoseToRoboticArm</gml:identifier>
+  <gml:name>Pose to extremity of a robotic arm</gml:name>
+  <gml:scope>TestBed 18 demonstration.</gml:scope>
+  <gml:method>
+    <gml:OperationMethod gml:id="PoseIrregularSeries">
+      <gml:identifier codeSpace="TB18-D025">PoseIrregularSeries</gml:identifier>
+      <gml:name>Pose irregular series</gml:name>
+      <gml:formula>See TB18 D025.</gml:formula>
+      <gml:sourceDimensions>3</gml:sourceDimensions>
+      <gml:targetDimensions>3</gml:targetDimensions>
+      <!--
+        The following elements describe the parameters without providing values.
+        They could be specified in an external registry and referenced in this
+        file with only a xlink:href attribute.
+      -->
+      <gml:parameter>
+        <gml:OperationParameter gml:id="start-instant">
+          <gml:identifier codeSpace="TB18-D025">:start-instant</gml:identifier>
+          <gml:name>Start instant</gml:name>
+        </gml:OperationParameter>
+      </gml:parameter>
+      <gml:parameter>
+        <gml:OperationParameter gml:id="end-instant">
+          <gml:identifier codeSpace="TB18-D025">:end-instant</gml:identifier>
+          <gml:name>End instant</gml:name>
+        </gml:OperationParameter>
+      </gml:parameter>
+      <!--
+        Above "Start instant" and "End instant" parameters will have exactly one value.
+        The parameters defined below are inside a group which can be repeated as many
+        times as desired with different parameter values.
+      -->
+      <gml:parameter>
+        <gml:OperationParameterGroup gml:id="pose-irregular-frame">
+          <gml:identifier codeSpace="TB18-D025">pose-irregular-frame</gml:identifier>
+          <gml:name>Frame specification (irregular)</gml:name>
+          <gml:minimumOccurs>1</gml:minimumOccurs>
+          <gml:maximumOccurs>1000</gml:maximumOccurs>   <!-- Arbitrary limit in number of steps. -->
+          <gml:parameter>
+            <gml:OperationParameter gml:id="valid-time">
+              <gml:identifier codeSpace="TB18-D025">valid-time</gml:identifier>
+              <gml:name>Valid time</gml:name>           <!-- As ISO-8601 or duration since Unix epoch. -->
+            </gml:OperationParameter>
+          </gml:parameter>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="pose-location">
+              <gml:identifier codeSpace="TB18-D025">pose-location</gml:identifier>
+              <gml:name>Pose location</gml:name>        <!-- As a sequence of 3 coordinate values. -->
+            </gml:OperationParameter>
+          </gml:parameter>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="yaw">
+              <gml:identifier codeSpace="TB18-D025">yaw</gml:identifier>
+              <gml:name>Yaw</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="pitch">
+              <gml:identifier codeSpace="TB18-D025">pitch</gml:identifier>
+              <gml:name>Pitch</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="roll">
+              <gml:identifier codeSpace="TB18-D025">roll</gml:identifier>
+              <gml:name>Roll</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+        </gml:OperationParameterGroup>
+      </gml:parameter>
+    </gml:OperationMethod>
+  </gml:method>
+  <!--
+    All parameters were described above.
+    The remaining lines of this file provide the parameter values.
+  -->
+  <gml:parameterValue>
+    <gml:ParameterValue>
+      <gml:stringValue>2022-10-20T06:00:00Z</gml:stringValue>
+      <gml:operationParameter xlink:href="#start-instant"/>
+    </gml:ParameterValue>
+  </gml:parameterValue>
+  <gml:parameterValue>
+    <gml:ParameterValue>
+      <gml:stringValue>2022-10-21T18:00:00Z</gml:stringValue>
+      <gml:operationParameter xlink:href="#end-instant"/>
+    </gml:ParameterValue>
+  </gml:parameterValue>
+  <gml:parameterValue>
+    <!--
+      Yaw/pitch/roll parameters for the first time step.
+    -->
+    <gml:ParameterValueGroup>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:stringValue>2022-10-20T06:00:00Z</gml:stringValue>
+          <gml:operationParameter xlink:href="#valid-time"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:valueList uom="urn:ogc:def:uom:EPSG::9001">4 6 2</gml:valueList> <!-- UoM is metres. Values are dummy. -->
+          <gml:operationParameter xlink:href="#pose-location"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9122">40</gml:value>            <!-- UoM is degrees. Value is dummy. -->
+          <gml:operationParameter xlink:href="#yaw"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9122">30</gml:value>
+          <gml:operationParameter xlink:href="#pitch"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9122">10</gml:value>
+          <gml:operationParameter xlink:href="#roll"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:group xlink:href="#pose-irregular-frame"/>
+    </gml:ParameterValueGroup>
+  </gml:parameterValue>
+  <gml:parameterValue>
+    <!--
+      Yaw/pitch/roll parameters for the second time step.
+      This is the same group than above, repeated with different parameter values.
+    -->
+    <gml:ParameterValueGroup>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:stringValue>2022-10-20T17:00:00Z</gml:stringValue>
+          <gml:operationParameter xlink:href="#valid-time"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:valueList uom="urn:ogc:def:uom:EPSG::9001">4 5 3</gml:valueList>
+          <gml:operationParameter xlink:href="#pose-location"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9122">70</gml:value>
+          <gml:operationParameter xlink:href="#yaw"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9122">20</gml:value>
+          <gml:operationParameter xlink:href="#pitch"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9122">30</gml:value>
+          <gml:operationParameter xlink:href="#roll"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:group xlink:href="#pose-irregular-frame"/>
+    </gml:ParameterValueGroup>
+  </gml:parameterValue>
+  <!--
+    More time steps could be added by continuing to repeat <gml:ParameterValueGroup>.
+  -->
+</gml:Conversion>

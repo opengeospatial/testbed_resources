@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:ConcatenatedOperation xsi:schemaLocation = "http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+                           xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                           xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                           gml:id             = "VoyagerToObservatory">
+  <!--
+    This GML file implements a scenario where an object observed from the CRS of a Voyager spacecraft
+    has its coordinates transformed to the CRS of the platform of an hypothetical observatory.
+    The operation methods and parameter values in this file are not real;
+    they were invented for OGC TestBed 18.
+
+    For every objects defined in this document, <gml:identifier> can be seen as the primary key to use
+    for fetching the object in a database. For example, if the code space is "IOGP" or "EPSG", then the
+    identifier is a primary key in EPSG geodetic dataset. For example in "urn:ogc:def:method:EPSG::9837",
+    primary key is "9837" and the table where to look for that primary key is "epsg_coordoperationmethod".
+    By contrast, gml:id attributes are local to this document and can be anything. They are used for xlink.
+  -->
+  <gml:identifier codeSpace="TB18-D025">VoyagerToObservatory</gml:identifier>
+  <gml:name>Voyager spacecraft to Observatory platform</gml:name>
+  <gml:scope>TestBed 18 demonstration.</gml:scope>
+  <gml:operationVersion>1</gml:operationVersion>
+  <!--
+    The source of this transformation is the Voyager spacecraft used as example in document D025, section
+    "CRS referenced to a moving platform". This block is the same ENGINEERINGCRS translated from WKT to GML.
+  -->
+  <gml:sourceCRS>
+    <gml:CompoundCRS gml:id="VoyagerAndTimeCRS">
+      <gml:identifier codeSpace="TB18-D025">VoyagerAndTimeCRS</gml:identifier>
+      <gml:name>Voyager CRS + time</gml:name>
+      <gml:scope>TestBed 18 demonstration.</gml:scope>
+      <gml:componentReferenceSystem>
+        <gml:EngineeringCRS gml:id="VoyagerCRS">
+          <gml:identifier codeSpace="TB18-D025">VoyagerCRS</gml:identifier>
+          <gml:name>A spacecraft-centred CRS for Voyager</gml:name>
+          <gml:scope>TestBed 18 demonstration.</gml:scope>
+          <gml:cartesianCS>
+            <gml:CartesianCS gml:id="VoyagerCS">
+              <gml:identifier codeSpace="TB18-D025">VoyagerCS</gml:identifier>
+              <gml:name>Spacecraft coordinate system</gml:name>
+              <gml:axis>
+                <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="VoyagerAxisForward">
+                  <gml:identifier codeSpace="TB18-D025">VoyagerAxisForward</gml:identifier>
+                  <gml:name>Forward</gml:name>
+                  <gml:axisAbbrev>x</gml:axisAbbrev>
+                  <gml:axisDirection codeSpace="ISO">forward</gml:axisDirection>
+                </gml:CoordinateSystemAxis>
+              </gml:axis>
+              <gml:axis>
+                <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="VoyagerAxisStarboard">
+                  <gml:identifier codeSpace="TB18-D025">VoyagerAxisStarboard</gml:identifier>
+                  <gml:name>Sideward</gml:name>
+                  <gml:axisAbbrev>y</gml:axisAbbrev>
+                  <gml:axisDirection codeSpace="ISO">starboard</gml:axisDirection> <!-- Not well defined in this example. -->
+                </gml:CoordinateSystemAxis>
+              </gml:axis>
+              <gml:axis>
+                <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="VoyagerAxisDown">
+                  <gml:identifier codeSpace="TB18-D025">VoyagerAxisDown</gml:identifier>
+                  <gml:name>Downward</gml:name>
+                  <gml:axisAbbrev>z</gml:axisAbbrev>
+                  <gml:axisDirection codeSpace="OGC">down</gml:axisDirection> <!-- Not well defined in this example. -->
+                </gml:CoordinateSystemAxis>
+              </gml:axis>
+            </gml:CartesianCS>
+          </gml:cartesianCS>
+          <gml:engineeringDatum>
+            <gml:EngineeringDatum gml:id="CenterOfMass">
+              <gml:identifier codeSpace="TB18-D025">VoyagerFrame</gml:identifier>
+              <gml:name>Voyager spacecraft frame</gml:name>
+              <gml:scope>TestBed 18 demonstration.</gml:scope>
+              <gml:anchorDefinition>Spacecraft centre of gravity</gml:anchorDefinition>
+            </gml:EngineeringDatum>
+          </gml:engineeringDatum>
+        </gml:EngineeringCRS>
+      </gml:componentReferenceSystem>
+      <gml:componentReferenceSystem>
+        <!--
+          This TemporalCRS will be reused in all CompoundCRS declared in this file.
+          This construct assumes that time is independent from spatial dimensions,
+          i.e. that we can ignore Einstein's relativity. If it is not the case,
+          we would need a CRS associated to a 4-dimensional MinkowskiCS instead.
+        -->
+        <gml:TemporalCRS gml:id="TimeCRS">
+          <gml:identifier codeSpace="TB18-D025">TimeCRS</gml:identifier>
+          <gml:name>Truncated Julian days</gml:name>
+          <gml:scope>TestBed 18 demonstration.</gml:scope>
+          <gml:timeCS>
+            <gml:TimeCS gml:id="TimeCS">
+              <gml:identifier codeSpace="TB18-D025">TimeCS</gml:identifier>
+              <gml:name>Days</gml:name>
+              <gml:axis>
+                <gml:CoordinateSystemAxis uom="day" gml:id="TimeAxis">      <!-- Not a standard way to declare UoM. -->
+                  <gml:identifier codeSpace="TB18-D025">TimeAxis</gml:identifier>
+                  <gml:name>Time</gml:name>
+                  <gml:axisAbbrev>t</gml:axisAbbrev>
+                  <gml:axisDirection codeSpace="ISO">future</gml:axisDirection>
+                </gml:CoordinateSystemAxis>
+              </gml:axis>
+            </gml:TimeCS>
+          </gml:timeCS>
+          <gml:temporalDatum>
+            <gml:TemporalDatum gml:id="JulianEpoch">
+              <gml:identifier codeSpace="TB18-D025">JulianEpoch</gml:identifier>
+              <gml:name>Truncated Julian epoch</gml:name>
+              <gml:scope>TestBed 18 demonstration.</gml:scope>
+              <gml:origin>1968-05-24T00:00:00Z</gml:origin>
+            </gml:TemporalDatum>
+          </gml:temporalDatum>
+        </gml:TemporalCRS>
+      </gml:componentReferenceSystem>
+    </gml:CompoundCRS>
+  </gml:sourceCRS>
+  <!--
+    The target of this transformation is the platform of an hypothetical observatory.
+    That platform uses Cartesian coordinate system on a plane tangent to Earth surface.
+    It is defined as a CRS derived from WGS84 geographic CRS using an operation method
+    defined by EPSG, namely "Geographic/topocentric conversions" (method EPSG::9837).
+    A WKT version of this CRS is available in the "Local tangent plane to ECEF" section
+    of D025 engineering report (see GEODETICCRS).
+  -->
+  <gml:targetCRS>
+    <gml:CompoundCRS gml:id="PlatformAndTimeCRS">
+      <gml:identifier codeSpace="TB18-D025">PlatformAndTimeCRS</gml:identifier>
+      <gml:name>Platform CRS + time</gml:name>
+      <gml:scope>TestBed 18 demonstration.</gml:scope>
+      <gml:componentReferenceSystem>
+        <gml:DerivedCRS gml:id="ObservatoryPlatformCRS">
+          <gml:identifier codeSpace="TB18-D025">ObservatoryPlatformCRS</gml:identifier>
+          <gml:name>Local Tangent Plane - East North Up (LTP-ENU)</gml:name>
+          <gml:scope>TestBed 18 demonstration.</gml:scope>
+          <gml:conversion>
+            <gml:Conversion gml:id="WGS84_to_LP">
+              <gml:identifier codeSpace="TB18-D025">WorldToPlatform</gml:identifier>
+              <gml:name>WGS84 to LTP-ENU</gml:name>
+              <gml:scope>TestBed 18 demonstration.</gml:scope>
+              <!--
+                The following block contains a description of all parameters, without the values.
+                This description could be replaced by a xlink to a XML document on EPSG registry,
+                but we provide full description in this file for making this example standalone.
+                The actual parameter values are given in separated elements after <gml:method>.
+              -->
+              <gml:method>
+                <gml:OperationMethod gml:id="ECEF_to_LP">
+                  <gml:identifier codeSpace="IOGP">urn:ogc:def:method:EPSG::9837</gml:identifier>
+                  <gml:name codeSpace="EPSG">Geographic/topocentric conversions</gml:name>
+                  <gml:formula>See IOGP Guidance Note #7-2.</gml:formula>
+                  <gml:sourceDimensions>3</gml:sourceDimensions>
+                  <gml:targetDimensions>3</gml:targetDimensions>
+                  <gml:parameter>
+                    <gml:OperationParameter gml:id="epsg-parameter-8834">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:parameter:EPSG::8834</gml:identifier>
+                      <gml:name>Latitude of topocentric origin</gml:name>
+                    </gml:OperationParameter>
+                  </gml:parameter>
+                  <gml:parameter>
+                    <gml:OperationParameter gml:id="epsg-parameter-8835">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:parameter:EPSG::8835</gml:identifier>
+                      <gml:name>Longitude of topocentric origin</gml:name>
+                    </gml:OperationParameter>
+                  </gml:parameter>
+                  <gml:parameter>
+                    <gml:OperationParameter gml:id="epsg-parameter-8836">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:parameter:EPSG::8836</gml:identifier>
+                      <gml:name>Ellipsoidal height of topocentric origin</gml:name>
+                    </gml:OperationParameter>
+                  </gml:parameter>
+                </gml:OperationMethod>
+              </gml:method>
+              <!--
+                This is where the parameter values for the conversion from ECEF to local tangent plane are provided.
+                Note the use of xlink: without them, we would have to repeat above descriptions inside the following
+                <gml:operationParameter> elements.
+              -->
+              <gml:parameterValue>
+                <gml:ParameterValue>
+                  <gml:value uom="urn:ogc:def:uom:EPSG::9102">28.583333</gml:value>
+                  <gml:operationParameter xlink:href="#epsg-parameter-8834"/> <!-- Latitude of topocentric origin -->
+                </gml:ParameterValue>
+              </gml:parameterValue>
+              <gml:parameterValue>
+                <gml:ParameterValue>
+                  <gml:value uom="urn:ogc:def:uom:EPSG::9102">-80.583056</gml:value>
+                  <gml:operationParameter xlink:href="#epsg-parameter-8835"/> <!-- Longitude of topocentric origin -->
+                </gml:ParameterValue>
+              </gml:parameterValue>
+              <gml:parameterValue>
+                <gml:ParameterValue>
+                  <gml:value uom="urn:ogc:def:uom:EPSG::9001">100</gml:value>
+                  <gml:operationParameter xlink:href="#epsg-parameter-8836"/> <!-- Ellipsoidal height of topocentric origin -->
+                </gml:ParameterValue>
+              </gml:parameterValue>
+            </gml:Conversion>
+          </gml:conversion>
+          <!--
+            The following block contains the Coordinate Reference System (CRS) associated to the observatory platform.
+            In the GeoPose specification, this is called "outer frame". GeoPose restricts the CRS of outer frame
+            to EPSG:4979, which is the CRS used in this example. But in GML any geodetic CRS could be used below.
+            In this example we copy the full definition, but a link to EPSG registry could also be used like below:
+
+            <gml:baseCRS xlink:href="https://epsg.org/api/v1/CoordRefSystem/4979/export?format=gml"/>
+          -->
+          <gml:baseCRS>
+            <gml:GeodeticCRS gml:id="epsg-crs-4979">
+              <gml:identifier codeSpace="IOGP">urn:ogc:def:crs:EPSG::4979</gml:identifier>
+              <gml:name codeSpace="EPSG">WGS 84</gml:name>
+              <gml:scope>Used by the GPS satellite navigation system.</gml:scope>
+              <gml:ellipsoidalCS>
+                <gml:EllipsoidalCS gml:id="epsg-cs-6423">
+                  <gml:identifier codeSpace="IOGP">urn:ogc:def:cs:EPSG::6423</gml:identifier>
+                  <gml:name>Ellipsoidal 3D CS.</gml:name>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis gml:id="epsg-axis-106" uom="urn:ogc:def:uom:EPSG::9122">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::106</gml:identifier>
+                      <gml:name>Geodetic latitude</gml:name>
+                      <gml:axisAbbrev>φ</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">north</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis gml:id="epsg-axis-107" uom="urn:ogc:def:uom:EPSG::9122">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::107</gml:identifier>
+                      <gml:name>Geodetic longitude</gml:name>
+                      <gml:axisAbbrev>λ</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">east</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis gml:id="epsg-axis-110" uom="urn:ogc:def:uom:EPSG::9001">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::110</gml:identifier>
+                      <gml:name>Ellipsoidal height</gml:name>
+                      <gml:axisAbbrev>h</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">up</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                </gml:EllipsoidalCS>
+              </gml:ellipsoidalCS>
+              <gml:geodeticDatum>
+                <gml:GeodeticDatum gml:id="epsg-datum-6326">
+                  <gml:identifier codeSpace="IOGP">urn:ogc:def:datum:EPSG::6326</gml:identifier>
+                  <gml:name>World Geodetic System 1984</gml:name>
+                  <gml:scope>Satellite navigation.</gml:scope>
+                  <gml:primeMeridian>
+                    <gml:PrimeMeridian gml:id = "epsg-meridian-8901">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:meridian:EPSG::8901</gml:identifier>
+                      <gml:name>Greenwich</gml:name>
+                      <gml:greenwichLongitude uom="urn:ogc:def:uom:EPSG::9102">0</gml:greenwichLongitude>
+                    </gml:PrimeMeridian>
+                  </gml:primeMeridian>
+                  <gml:ellipsoid>
+                    <gml:Ellipsoid gml:id = "epsg-ellipsoid-7030">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:ellipsoid:EPSG::7030</gml:identifier>
+                      <gml:name>WGS 84</gml:name>
+                      <gml:semiMajorAxis uom="urn:ogc:def:uom:EPSG::9001">6378137.0</gml:semiMajorAxis>
+                      <gml:secondDefiningParameter>
+                        <gml:SecondDefiningParameter>
+                          <gml:inverseFlattening uom="urn:ogc:def:uom:EPSG::9201">298.257223563</gml:inverseFlattening>
+                        </gml:SecondDefiningParameter>
+                      </gml:secondDefiningParameter>
+                    </gml:Ellipsoid>
+                  </gml:ellipsoid>
+                </gml:GeodeticDatum>
+              </gml:geodeticDatum>
+            </gml:GeodeticCRS>
+          </gml:baseCRS>
+          <!--
+            The following block defines the axes of the observatory platform as a Cartesian coordinate system.
+            The platform origin is located at 28.583333°N, 80.583056°W and 100 meters above ellipsoid.
+            Those values are specified in the <gml:conversion> block above.
+          -->
+          <gml:derivedCRSType codeSpace="EPSG">engineering</gml:derivedCRSType>
+          <gml:coordinateSystem>
+            <gml:CartesianCS gml:id="ObservatoryPlatformCS">
+              <gml:identifier codeSpace="TB18-D025">ObservatoryPlatformCS</gml:identifier>
+              <gml:name>Topocentric easting and northing</gml:name>
+              <gml:axis>
+                <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="PlatformAxisEast">
+                  <gml:identifier codeSpace="TB18-D025">PlatformAxisEast</gml:identifier>
+                  <gml:name>Topocentric East</gml:name>
+                  <gml:axisAbbrev>U</gml:axisAbbrev>
+                  <gml:axisDirection codeSpace="ISO">east</gml:axisDirection>
+                </gml:CoordinateSystemAxis>
+              </gml:axis>
+              <gml:axis>
+                <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="PlatformAxisNorth">
+                  <gml:identifier codeSpace="TB18-D025">PlatformAxisNorth</gml:identifier>
+                  <gml:name>Topocentric North</gml:name>
+                  <gml:axisAbbrev>V</gml:axisAbbrev>
+                  <gml:axisDirection codeSpace="ISO">north</gml:axisDirection>
+                </gml:CoordinateSystemAxis>
+              </gml:axis>
+              <gml:axis>
+                <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="PlatformAxisHeight">
+                  <gml:identifier codeSpace="TB18-D025">PlatformAxisHeight</gml:identifier>
+                  <gml:name>Topocentric height</gml:name>
+                  <gml:axisAbbrev>W</gml:axisAbbrev>
+                  <gml:axisDirection codeSpace="ISO">up</gml:axisDirection>
+                </gml:CoordinateSystemAxis>
+              </gml:axis>
+            </gml:CartesianCS>
+          </gml:coordinateSystem>
+        </gml:DerivedCRS>
+      </gml:componentReferenceSystem>
+      <gml:componentReferenceSystem xlink:href="#TimeCRS"/>
+    </gml:CompoundCRS>
+  </gml:targetCRS>
+  <!--
+    Above source and target CRS are global to the full chain of transformations, from Voyager to observatory.
+    The remaining of this file will provide detail for each step represented by arrows in the following line:
+
+    Voyager → Heliocentric → Earth-Centered Inertial → Geocentric → Geographic → Observatory platform
+
+    The first and last CRS use Cartesian CS, all other CRS use spherical or ellipsoidal CS.
+    Source and target CRS are repeated (the target of each step is the source of next step),
+    but we will use `xlink` for avoiding to duplicate the full definitions.
+  -->
+  <gml:coordOperation>
+    <gml:Transformation gml:id="VoyagerToHeliocentric">
+      <gml:identifier codeSpace="TB18-D025">VoyagerToHeliocentric</gml:identifier>
+      <gml:name>Voyager spacecraft to heliocentric CRS</gml:name>
+      <gml:scope>TestBed 18 demonstration.</gml:scope>
+      <gml:operationVersion>1</gml:operationVersion>
+      <gml:sourceCRS xlink:href="#VoyagerAndTimeCRS"/>
+      <gml:targetCRS>
+        <gml:CompoundCRS gml:id="HeliocentricAndTimeCRS">
+          <gml:identifier codeSpace="TB18-D025">HeliocentricAndTimeCRS</gml:identifier>
+          <gml:name>Heliocentric CRS + time</gml:name>
+          <gml:scope>TestBed 18 demonstration.</gml:scope>
+          <gml:componentReferenceSystem>
+            <!-- Use EngineeringCRS as a workaround for absence of InertialCRS in current model. -->
+            <gml:EngineeringCRS gml:id="HeliocentricCRS">
+              <gml:identifier codeSpace="TB18-D025">HeliocentricCRS</gml:identifier>
+              <gml:name>Ecliptic heliocentric CRS (Spherical)</gml:name>
+              <gml:scope>TestBed 18 demonstration.</gml:scope>
+              <gml:coordinateSystem>
+                <gml:SphericalCS gml:id="EclipticCS">
+                  <gml:identifier codeSpace="TB18-D025">EclipticCS</gml:identifier>
+                  <gml:name>Ecliptic CS</gml:name>
+                  <gml:remarks>
+                    Axis direction North stands for "north ecliptic pole" and East for "6 hours from vernal equinox".
+                  </gml:remarks>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="EclipticLatitude">
+                      <gml:identifier codeSpace="TB18-D025">EclipticLatitude</gml:identifier>
+                      <gml:name>Ecliptic latitude</gml:name>
+                      <gml:axisAbbrev>l</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">north</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="EclipticLongitude">
+                      <gml:identifier codeSpace="TB18-D025">EclipticLongitude</gml:identifier>
+                      <gml:name>Ecliptic longitude</gml:name>
+                      <gml:axisAbbrev>lon</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">east</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9036" gml:id="Distance">   <!-- kilometres -->
+                      <gml:identifier codeSpace="TB18-D025">Distance</gml:identifier>
+                      <gml:name>Distance</gml:name>
+                      <gml:axisAbbrev>r</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">up</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                </gml:SphericalCS>
+              </gml:coordinateSystem>
+              <gml:engineeringDatum>
+                <gml:EngineeringDatum gml:id="SunDatum">
+                  <gml:identifier codeSpace="TB18-D025">SunDatum</gml:identifier>
+                  <gml:name>Sun reference frame</gml:name>
+                  <gml:scope>TestBed 18 demonstration.</gml:scope>
+                  <gml:anchorDefinition>Sun centre of gravity</gml:anchorDefinition>
+                </gml:EngineeringDatum>
+              </gml:engineeringDatum>
+            </gml:EngineeringCRS>
+          </gml:componentReferenceSystem>
+          <gml:componentReferenceSystem xlink:href="#TimeCRS"/>
+        </gml:CompoundCRS>
+      </gml:targetCRS>
+      <!--
+        The following block defines the coordinate transformation from the Voyager CRS to heliocentric CRS.
+        The structure is similar to the one for <gml:DerivedCRS> definition: first describe the parameters,
+        then provide parameter values. In this example, we assume that this coordinate transformation is so
+        complex that it cannot be described with a few parameters. Instead, spacecraft trajectory relative
+        to the Sun is stored in a file. This example use "Moving Feature CSV encoding" as the file format.
+        See TB18 D025 in "Spacecraft trajectory" section for an example of file content.
+      -->
+      <gml:method>
+        <gml:OperationMethod gml:id="TrajectoryToConventional">
+          <gml:identifier codeSpace="TB18-D025">TrajectoryToConventional</gml:identifier>
+          <gml:name>Trajectory to Conventional frame</gml:name>
+          <gml:formula>Use trajectory coordinates and yaw/roll/pitch attributes from Moving Feature CSV file.</gml:formula>
+          <gml:sourceDimensions>4</gml:sourceDimensions>
+          <gml:targetDimensions>4</gml:targetDimensions>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="TrajectoryFile">
+              <gml:identifier codeSpace="TB18-D025">TrajectoryFile</gml:identifier>
+              <gml:name>Feature trajectory file</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+        </gml:OperationMethod>
+      </gml:method>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:valueFile>VoyagerTrajectory.csv</gml:valueFile>
+          <gml:operationParameter xlink:href="#TrajectoryFile"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+    </gml:Transformation>
+  </gml:coordOperation>
+  <!--
+    At this point, coordinates have been transformed from Voyager CRS to heliocentric CRS.
+    The next step is to transform those coordinates to Earth-Centered quasi-inertial CRS.
+    The target CRS below is from document D025 section "Earth-centered inertial CRS".
+  -->
+  <gml:coordOperation>
+    <gml:Transformation gml:id="HeliocentricToECI">
+      <gml:identifier codeSpace="TB18-D025">HeliocentricToECI</gml:identifier>
+      <gml:name>Heliocentric to Earth-Centered Inertial</gml:name>
+      <gml:scope>TestBed 18 demonstration.</gml:scope>
+      <gml:operationVersion>1</gml:operationVersion>
+      <gml:sourceCRS xlink:href="#HeliocentricAndTimeCRS"/>
+      <gml:targetCRS>
+        <gml:CompoundCRS gml:id="InertialAndTimeCRS">
+          <gml:identifier codeSpace="TB18-D025">InertialAndTimeCRS</gml:identifier>
+          <gml:name>Inertial CRS + time</gml:name>
+          <gml:scope>TestBed 18 demonstration.</gml:scope>
+          <gml:componentReferenceSystem>
+            <gml:EngineeringCRS gml:id="InertialCRS">
+              <gml:identifier codeSpace="TB18-D025">InertialCRS</gml:identifier>
+              <gml:name>Quasi-inertial (Equatorial CS)</gml:name>
+              <gml:scope>TestBed 18 demonstration.</gml:scope>
+              <gml:coordinateSystem>
+                <gml:SphericalCS gml:id="InertialCS">
+                  <gml:identifier codeSpace="TB18-D025">InertialCS</gml:identifier>
+                  <gml:name>Celestial equatorial CS</gml:name>
+                  <gml:remarks>
+                    Axis direction North stands for "north celestial pole" and East for "6 hours from vernal equinox".
+                  </gml:remarks>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="Declination">        <!-- degrees -->
+                      <gml:identifier codeSpace="TB18-D025">Declination</gml:identifier>
+                      <gml:name>Declination</gml:name>
+                      <gml:axisAbbrev>δ</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">north</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="Ascension">          <!-- degrees -->
+                      <gml:identifier codeSpace="TB18-D025">Ascension</gml:identifier>
+                      <gml:name>Right ascension</gml:name>
+                      <gml:axisAbbrev>α</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">east</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9036" gml:id="GeocentricRadius">   <!-- kilometres -->
+                      <gml:identifier codeSpace="TB18-D025">GeocentricRadius</gml:identifier>
+                      <gml:name>Geocentric radius</gml:name>
+                      <gml:axisAbbrev>R</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">up</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                </gml:SphericalCS>
+              </gml:coordinateSystem>
+              <gml:engineeringDatum>
+                <gml:EngineeringDatum gml:id="EarthDatum">
+                  <gml:identifier codeSpace="TB18-D025">EarthDatum</gml:identifier>
+                  <gml:name>ECI frame</gml:name>
+                  <gml:scope>TestBed 18 demonstration.</gml:scope>
+                  <gml:anchorDefinition>Earth centre of gravity</gml:anchorDefinition>
+                </gml:EngineeringDatum>
+              </gml:engineeringDatum>
+            </gml:EngineeringCRS>
+          </gml:componentReferenceSystem>
+          <gml:componentReferenceSystem xlink:href="#TimeCRS"/>
+        </gml:CompoundCRS>
+      </gml:targetCRS>
+      <!--
+        For Testbed 18, we assume a circular orbit of Earth around the Sun.
+        Using a more accurate operation would only add more parameters;
+        it would not change the principle.
+      -->
+      <gml:method>
+        <gml:OperationMethod gml:id="ToCircularOrbit">
+          <gml:identifier codeSpace="TB18-D025">ToCircularOrbit</gml:identifier>
+          <gml:name>To circular orbit (Spherical domain)</gml:name>
+          <gml:formula>See TB18 D025.</gml:formula>
+          <gml:sourceDimensions>4</gml:sourceDimensions>
+          <gml:targetDimensions>4</gml:targetDimensions>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="OrbitRadius">
+              <gml:identifier codeSpace="TB18-D025">OrbitRadius</gml:identifier>
+              <gml:name>Orbit radius</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="OrbitSpeed">
+              <gml:identifier codeSpace="TB18-D025">OrbitSpeed</gml:identifier>
+              <gml:name>Orbit speed</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="VernalEquinox">
+              <gml:identifier codeSpace="TB18-D025">VernalEquinox</gml:identifier>
+              <gml:name>Vernal equinox</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+        </gml:OperationMethod>
+      </gml:method>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <!-- For reference: Semi-major axis length: 149597887.5 km
+                              Semi-minor axis length: 149576999.8 km -->
+          <gml:value uom="urn:ogc:def:uom:EPSG::9036">149597870.7</gml:value>
+          <gml:operationParameter xlink:href="#OrbitRadius"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="km/s">29.78</gml:value>                       <!-- Not a standard way to represent UoM. -->
+          <gml:operationParameter xlink:href="#OrbitSpeed"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::1029">2022.216438356</gml:value>       <!-- UoM is tropical year. -->
+          <gml:operationParameter xlink:href="#VernalEquinox"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+    </gml:Transformation>
+  </gml:coordOperation>
+  <!--
+    At this point, coordinates have been transformed to Earth-Centered inertial CRS.
+    The next step is to convert to Earth-Fixed coordinates. For this engineering report,
+    we assume a simple longitude rotation with a constant Earth rotation rate.
+  -->
+  <gml:coordOperation>
+    <gml:Transformation gml:id="InertialToEarthFixed">
+      <gml:identifier codeSpace="TB18-D025">InertialToEarthFixed</gml:identifier>
+      <gml:name>Earth-Centered Inertial (ECI) to Earth Fixed (ECEF)</gml:name>
+      <gml:scope>TestBed 18 demonstration.</gml:scope>
+      <gml:operationVersion>1</gml:operationVersion>
+      <gml:sourceCRS xlink:href="#InertialAndTimeCRS"/>
+      <gml:targetCRS>
+        <gml:CompoundCRS gml:id="GeodeticAndTimeCRS">
+          <gml:identifier codeSpace="TB18-D025">GeodeticAndTimeCRS</gml:identifier>
+          <gml:name>WGS 84 (Spherical) + time</gml:name>
+          <gml:scope>TestBed 18 demonstration.</gml:scope>
+          <gml:componentReferenceSystem>
+            <gml:GeodeticCRS gml:id="ECEF">
+              <gml:identifier codeSpace="TB18-D025">ECEF</gml:identifier>
+              <gml:name>WGS 84 (Spherical)</gml:name>
+              <gml:scope>TestBed 18 demonstration.</gml:scope>
+              <gml:sphericalCS>
+                <gml:SphericalCS gml:id="epsg-cs-6404">
+                  <gml:identifier codeSpace="EPSG">6404</gml:identifier>
+                  <gml:name>Spherical 3D CS.</gml:name>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="epsg-axis-32879">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::32879</gml:identifier>
+                      <gml:name>Spherical latitude</gml:name>
+                      <gml:axisAbbrev>lat</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">north</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9122" gml:id="epsg-axis-32880">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::32880</gml:identifier>
+                      <gml:name>Spherical longitude</gml:name>
+                      <gml:axisAbbrev>lon</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">east</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                  <gml:axis>
+                    <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9001" gml:id="epsg-axis-32881">
+                      <gml:identifier codeSpace="IOGP">urn:ogc:def:axis:EPSG::32881</gml:identifier>
+                      <gml:name>Geocentric radius</gml:name>
+                      <gml:axisAbbrev>R</gml:axisAbbrev>
+                      <gml:axisDirection codeSpace="ISO">up</gml:axisDirection>
+                    </gml:CoordinateSystemAxis>
+                  </gml:axis>
+                </gml:SphericalCS>
+              </gml:sphericalCS>
+              <gml:geodeticDatum xlink:href="#epsg-datum-6326"/>
+            </gml:GeodeticCRS>
+          </gml:componentReferenceSystem>
+          <gml:componentReferenceSystem xlink:href="#TimeCRS"/>
+        </gml:CompoundCRS>
+      </gml:targetCRS>
+      <gml:method>
+        <gml:OperationMethod gml:id="TimeDependentLongitudeRotation">
+          <gml:identifier codeSpace="TB18-D025">TimeDependentLongitudeRotation</gml:identifier>
+          <gml:name>Time-dependent longitude rotation (equatorial CS)</gml:name>
+          <gml:formula>See TB18 D025.</gml:formula>
+          <gml:sourceDimensions>4</gml:sourceDimensions>
+          <gml:targetDimensions>4</gml:targetDimensions>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="LongitudeRotation">
+              <gml:identifier codeSpace="TB18-D025">LongitudeRotation</gml:identifier>
+              <gml:name>Longitude axis rotation</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="RateOfRotationChange">
+              <gml:identifier codeSpace="TB18-D025">RateOfRotationChange</gml:identifier>
+              <gml:name>Rate of change of longitude axis rotation</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+          <gml:parameter>
+            <gml:OperationParameter gml:id="Epoch">
+              <gml:identifier codeSpace="TB18-D025">Epoch</gml:identifier>
+              <gml:name>Parameter reference epoch</gml:name>
+            </gml:OperationParameter>
+          </gml:parameter>
+        </gml:OperationMethod>
+      </gml:method>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::9122">-100</gml:value>      <!-- UoM is degrees. Value is dummy. -->
+          <gml:operationParameter xlink:href="#LongitudeRotation"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="degree/day">354.81928033673245</gml:value>        <!-- Not a standard way to represent UoM. -->
+          <gml:operationParameter xlink:href="#RateOfRotationChange"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+      <gml:parameterValue>
+        <gml:ParameterValue>
+          <gml:value uom="urn:ogc:def:uom:EPSG::1029">2000</gml:value>      <!-- UoM is tropical year. -->
+          <gml:operationParameter xlink:href="#Epoch"/>
+        </gml:ParameterValue>
+      </gml:parameterValue>
+    </gml:Transformation>
+  </gml:coordOperation>
+  <!--
+    At this point, coordinates have been transformed to Earth-Fixed spherical coordinates.
+    The next step is to convert to geographic coordinates (EPSG:4979) with a time axis.
+    That coordinate operation works on 3 spatial dimensions, so we need to wrap it in
+    a pass-through operation for letting the time dimension passes through.
+  -->
+  <gml:coordOperation>
+    <gml:PassThroughOperation gml:id="SphericalToGeographic4D">
+      <gml:identifier codeSpace="TB18-D025">SphericalToGeographic4D</gml:identifier>
+      <gml:name>Earth Fixed (ECEF) spherical to geographic with time</gml:name>
+      <gml:scope>TestBed 18 demonstration.</gml:scope>
+      <gml:sourceCRS xlink:href="#GeodeticAndTimeCRS"/>
+      <gml:targetCRS>
+        <gml:CompoundCRS gml:id="GeographicAndTimeCRS">
+          <gml:identifier codeSpace="TB18-D025">GeographicAndTimeCRS</gml:identifier>
+          <gml:name>WGS84 + time</gml:name>
+          <gml:scope>TestBed 18 demonstration.</gml:scope>
+          <gml:componentReferenceSystem xlink:href="#epsg-crs-4979"/>
+          <gml:componentReferenceSystem xlink:href="#TimeCRS"/>
+        </gml:CompoundCRS>
+      </gml:targetCRS>
+      <gml:modifiedCoordinate>1</gml:modifiedCoordinate>  <!-- Index values start at 1. -->
+      <gml:modifiedCoordinate>2</gml:modifiedCoordinate>
+      <gml:modifiedCoordinate>3</gml:modifiedCoordinate>
+      <gml:coordOperation>
+        <!--
+          In principle this is a conversion, not a transformation. But we nevertheless use the
+          <gml:Transformation> type for being allowed to specify the source and target CRS.
+          Those CRS are not specified by other elements (the source/target CRS of enclosing
+          pass-through operation have more dimensions).
+        -->
+        <gml:Transformation gml:id="SphericalToGeographic">
+          <gml:identifier codeSpace="TB18-D025">SphericalToGeographic</gml:identifier>
+          <gml:name>Earth Fixed (ECEF) spherical to geographic</gml:name>
+          <gml:scope>TestBed 18 demonstration.</gml:scope>
+          <gml:operationVersion>1</gml:operationVersion>
+          <gml:sourceCRS xlink:href="#ECEF"/>
+          <gml:targetCRS xlink:href="#epsg-crs-4979"/>
+          <gml:method>
+            <gml:OperationMethod gml:id="GeographicSphericalConversion">
+              <gml:identifier codeSpace="TB18-D025">GeographicSphericalConversion</gml:identifier>
+              <gml:name>Geographic/spherical conversions</gml:name>
+              <gml:formula>See TB18 D025.</gml:formula>
+              <gml:sourceDimensions>3</gml:sourceDimensions>
+              <gml:targetDimensions>3</gml:targetDimensions>
+            </gml:OperationMethod>
+          </gml:method>
+        </gml:Transformation>
+      </gml:coordOperation>
+    </gml:PassThroughOperation>
+  </gml:coordOperation>
+  <!--
+    At this point, coordinates have been transformed to EPSG:4979 with a time axis.
+    The final step is to convert to the tangent plane. We use again a pass-through
+    operation. We also reuse the operation method and parameters defined above.
+  -->
+  <gml:coordOperation>
+    <gml:PassThroughOperation gml:id="GeographicToPlatform4D">
+      <gml:identifier codeSpace="TB18-D025">GeographicToPlatform4D</gml:identifier>
+      <gml:name>Geographic to observatory platform with time</gml:name>
+      <gml:scope>TestBed 18 demonstration.</gml:scope>
+      <gml:sourceCRS xlink:href="#GeographicAndTimeCRS"/>
+      <gml:targetCRS xlink:href="#PlatformAndTimeCRS"/>
+      <gml:modifiedCoordinate>1</gml:modifiedCoordinate>  <!-- Index values start at 1. -->
+      <gml:modifiedCoordinate>2</gml:modifiedCoordinate>
+      <gml:modifiedCoordinate>3</gml:modifiedCoordinate>
+      <gml:coordOperation xlink:href="#WGS84_to_LP"/>
+    </gml:PassThroughOperation>
+  </gml:coordOperation>
+</gml:ConcatenatedOperation>
