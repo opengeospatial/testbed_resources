@@ -1,0 +1,7 @@
+EngineeringCRS["DART spacecraft spherical CRS",
+  EngineeringDatum["DART center of mass"],
+  CS[spherical, 2],
+    Axis["Relative bearing (θ)", clockwise, Unit["arc-second", 4.8481368110954E-6]],
+    Axis["Altitude (α)", up, Unit["arc-second", 4.8481368110954E-6]],
+  Scope["For identifying positions of objects relative to DART spacecraft."],
+  Id["JPL", -135, Citation["JPL:HORIZONS"]]]

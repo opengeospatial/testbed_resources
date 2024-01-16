@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdb:MD_Metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
+                 xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+                 xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
+                 xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
+                 xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/1.0"
+        xsi:schemaLocation="http://standards.iso.org/iso/19115/-3/mdb/1.0 https://schemas.isotc211.org/19115/-3/mdb/1.0/mdb.xsd">
+
+  <mdb:identificationInfo>
+    <mri:MD_DataIdentification>
+      <mri:citation>
+        <cit:CI_Citation>
+          <cit:title>
+            <gco:CharacterString>Didymos and Dimorphos seen by DART</gco:CharacterString>
+          </cit:title>
+          <cit:citedResponsibleParty>
+            <cit:CI_Responsibility>
+              <cit:role>
+                <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode"
+                                 codeListValue="publisher">Publisher</cit:CI_RoleCode>
+              </cit:role>
+              <cit:party>
+                <cit:CI_Organisation>
+                  <cit:name>
+                    <gco:CharacterString>European Space Agency</gco:CharacterString>
+                  </cit:name>
+                </cit:CI_Organisation>
+              </cit:party>
+            </cit:CI_Responsibility>
+          </cit:citedResponsibleParty>
+          <cit:presentationForm>
+            <cit:CI_PresentationFormCode codeList="http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_PresentationFormCode"
+                                         codeListValue="imageDigital">Image digital</cit:CI_PresentationFormCode>
+          </cit:presentationForm>
+        </cit:CI_Citation>
+      </mri:citation>
+      <mri:topicCategory>
+        <mri:MD_TopicCategoryCode>extraTerrestrial</mri:MD_TopicCategoryCode>
+      </mri:topicCategory>
+      <mri:defaultLocale>
+        <lan:PT_Locale>
+          <lan:language>
+            <lan:LanguageCode codeList="http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#LanguageCode"
+                              codeListValue="eng" codeSpace="fra">anglais</lan:LanguageCode>
+          </lan:language>
+          <lan:characterEncoding>
+            <lan:MD_CharacterSetCode codeList="http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_CharacterSetCode"
+                                     codeListValue="utf8">UTF-8</lan:MD_CharacterSetCode>
+          </lan:characterEncoding>
+        </lan:PT_Locale>
+      </mri:defaultLocale>
+    </mri:MD_DataIdentification>
+  </mdb:identificationInfo>
+</mdb:MD_Metadata>
