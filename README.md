@@ -1,6 +1,6 @@
-# OGC TestBed resources
+# OGC Testbed resources
 
-This repository contains resources produced by OGC TestBed activities,
+This repository contains resources produced by OGC Testbed activities,
 other than the reports published in PDF format.
 Some examples of resources in this repository are:
 
