@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gsp:InertialCRS xsi:schemaLocation = "http://www.opengis.net/gsp/1.0 ../standard-schema-proposal/geospatialInSpace.xsd"
+                 xmlns:gsp          = "http://www.opengis.net/gsp/1.0"
+                 xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                 xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                 gml:id             = "EarthCRS">
+
+  <gml:description>
+    This GML file describes an inertial Coordinate Reference System (CRS) for Earth.
+    This definition is similar to WGS84 (the same ellipsoid is used),
+    except that the axes orientations are fix relative to distant stars.
+  </gml:description>
+  <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:crs:JPL::399</gml:identifier>
+  <gml:name codeSpace="JPL:HORIZONS">Earth (inertial)</gml:name>
+  <gml:remarks>
+    This CRS definition uses new objects proposed by Testbed-19 with the "gsp" prefix.
+    The JPL and IAU namespaces used in this file are not for official JPL/IAU codes.
+    Those namespaces are used only for demonstrating what the identifiers may look
+    like if JPL and IAU published CRS definitions as GML objects.
+  </gml:remarks>
+  <gml:scope>For use with the trajectory of objects in free flight in space.</gml:scope>
+  <gml:cartesianCS>
+    <gml:CartesianCS gml:id="EarthCS">
+      <!-- This coordinate system is repeated for all inertial CRS in this directory. -->
+      <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:cs:JPL::ICRF</gml:identifier>
+      <gml:name>Cartesian 3D CS (km).</gml:name>
+      <gml:axis>
+        <gml:CoordinateSystemAxis gml:id="axisX" uom="urn:ogc:def:uom:EPSG::9036">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:axis:JPL::ICRF-X</gml:identifier>
+          <gml:name>X</gml:name>
+          <gml:axisAbbrev>X</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="JPL:HORIZONS">geocentricX</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+      <gml:axis>
+        <gml:CoordinateSystemAxis gml:id="axisY" uom="urn:ogc:def:uom:EPSG::9036">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:axis:JPL::ICRF-Y</gml:identifier>
+          <gml:name>Y</gml:name>
+          <gml:axisAbbrev>Y</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="JPL:HORIZONS">geocentricY</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+      <gml:axis>
+        <gml:CoordinateSystemAxis gml:id="axisZ" uom="urn:ogc:def:uom:EPSG::9036">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:axis:JPL::ICRF-Z</gml:identifier>
+          <gml:name>Z</gml:name>
+          <gml:axisAbbrev>Z</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="JPL:HORIZONS">geocentricZ</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+    </gml:CartesianCS>
+  </gml:cartesianCS>
+  <gsp:inertialReferenceFrame>
+    <gsp:InertialReferenceFrame gml:id="EarthDatum">
+      <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:datum:JPL::399</gml:identifier>
+      <gml:name>Earth inertial reference frame</gml:name>
+      <gml:scope>For orbit positionning.</gml:scope>
+      <gsp:celestialBody>
+        <gsp:CelestialBody gml:id="Earth">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:body:JPL::399</gml:identifier>
+          <gml:name>Earth</gml:name>
+        </gsp:CelestialBody>
+      </gsp:celestialBody>
+      <gml:ellipsoid>
+        <gml:Ellipsoid gml:id = "epsg-ellipsoid-7030">
+          <gml:identifier codeSpace="IOGP">urn:ogc:def:ellipsoid:EPSG::7030</gml:identifier>
+          <gml:name>WGS 84</gml:name>
+          <gml:semiMajorAxis uom="urn:ogc:def:uom:EPSG::9001">6378137.0</gml:semiMajorAxis>
+          <gml:secondDefiningParameter>
+            <gml:SecondDefiningParameter>
+              <gml:inverseFlattening uom="urn:ogc:def:uom:EPSG::9201">298.257223563</gml:inverseFlattening>
+            </gml:SecondDefiningParameter>
+          </gml:secondDefiningParameter>
+        </gml:Ellipsoid>
+      </gml:ellipsoid>
+      <gsp:primeDirection>
+        <gml:PrimeMeridian gml:id="MarchEquinox">
+          <gml:identifier codeSpace="IAU:MarchEquinox">urn:ogc:def:meridian:IAU::MarchEquinox</gml:identifier>
+          <gml:name>March equinox</gml:name>
+          <gml:greenwichLongitude uom="urn:ogc:def:uom:EPSG::9102">0</gml:greenwichLongitude>
+        </gml:PrimeMeridian>
+      </gsp:primeDirection>
+    </gsp:InertialReferenceFrame>
+  </gsp:inertialReferenceFrame>
+</gsp:InertialCRS>

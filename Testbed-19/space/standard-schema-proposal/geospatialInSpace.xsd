@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<schema version            = "1.0.0"
+        targetNamespace    = "http://www.opengis.net/gsp/1.0"
+        xmlns:gsp          = "http://www.opengis.net/gsp/1.0"
+        xmlns:gml          = "http://www.opengis.net/gml/3.2"
+        xmlns              = "http://www.w3.org/2001/XMLSchema"
+        xml:lang           = "en"
+        elementFormDefault = "qualified">
+
+  <annotation>
+    <appinfo source="urn:ogc:specification:gml:schema-xsd:geospatialInSpace.xsd:1.0.0">geospatialInSpace.xsd</appinfo>
+    <documentation>
+      The Geospatial in Space schema is an extension to the Coordinate Reference System components defined in the GML schema.
+      This schema is not an OGC Standard. This schema is part of an OGC Public Engineering Report created as a deliverable
+      in an OGC Interoperability Initiative and is not an official position of the OGC membership.
+      It is distributed for review and comment.
+      It is subject to change without notice and may not be referred to as an OGC Standard.
+    </documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="https://schemas.opengis.net/gml/3.2.1/coordinateReferenceSystems.xsd"/>
+
+
+  <!--
+    Coordinate System
+  -->
+  <element name="MinkowskiCS" type="gsp:MinkowskiCSType" substitutionGroup="gml:AbstractCoordinateSystem">
+    <annotation>
+      <documentation>
+        gsp:MinkowskiCS is a 4-dimensional coordinate system.
+        The three spacial dimensions give the position of points relative to orthogonal straight axes.
+        The fourth dimension gives the position in time since an epoch.
+        All axes shall have the same length unit of measure,
+        with time expressed as the distance covered by light in the vacuum during the elapsed time.
+        A MinkowskiCS shall have exactly four gml:axis property elements.
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="MinkowskiCSType">
+    <complexContent>
+      <extension base="gml:AbstractCoordinateSystemType"/>
+    </complexContent>
+  </complexType>
+  <complexType name="MinkowskiCSPropertyType">
+    <annotation>
+      <documentation>
+        gsp:MinkowskiCSPropertyType is a property type for association roles to a Minkowski coordinate system,
+        either referencing or containing the definition of that coordinate system.
+      </documentation>
+    </annotation>
+    <sequence minOccurs="0">
+      <element ref="gsp:MinkowskiCS"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+
+
+  <!--
+    Triaxial ellipsoid
+  -->
+  <element name="TriaxialEllipsoid" type="gsp:TriaxialEllipsoidType" substitutionGroup="gml:Ellipsoid">
+    <annotation>
+      <documentation>
+        gsp:TriaxialEllipsoid is an ellipsoid described using an additional semi-median axis attribute.
+        This attribute is for planetry applications and is not used when describing a bi-axial oblate
+        reference ellipsoid model of the Earth. For a triaxial reference ellipsoid it is usual for the
+        secondDefiningParameter to be the ellipsoid's semi-minor axis.
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="TriaxialEllipsoidType">
+    <complexContent>
+      <extension base="gml:EllipsoidType">
+        <sequence>
+          <element ref="gsp:semiMedianAxis"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="semiMedianAxis" type="gml:MeasureType">
+    <annotation>
+      <documentation>
+        gsp:semiMedianAxis specifies the length of the semi-median axis of the ellipsoid, with its units.
+        Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for a length,
+        such as metres or feet.
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="TriaxialEllipsoidPropertyType">
+    <annotation>
+      <documentation>
+        gsp:TriaxialEllipsoidPropertyType is a property type for association roles to a triaxial ellipsoid,
+        either referencing or containing the definition of that ellipsoid.
+      </documentation>
+    </annotation>
+    <sequence minOccurs="0">
+      <element ref="gsp:TriaxialEllipsoid"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+
+
+  <!--
+    Datum
+  -->
+  <element name="CelestialBody" type="gsp:CelestialBodyType" substitutionGroup="gml:Definition">
+    <annotation>
+      <documentation>
+        A gsp:CelestialBody is a name or identifier of the star, planet, asteroid or other celestial body
+        for which a reference frame is defined.
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="CelestialBodyType">
+    <complexContent>
+      <extension base="gml:IdentifiedObjectType">
+        <!-- We should put a reference to ISO 19112 here, but there is apparently no XML schema for it. -->
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CelestialBodyPropertyType">
+    <annotation>
+      <documentation>
+        gsp:CelestialBodyPropertyType is a property type for association roles to a celestial body,
+        either referencing or containing the definition of that celestial body.
+      </documentation>
+    </annotation>
+    <sequence minOccurs="0">
+      <element ref="gsp:CelestialBody"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+
+  <element name="InertialReferenceFrame" type="gsp:InertialReferenceFrameType" substitutionGroup="gml:AbstractDatum">
+    <annotation>
+      <documentation>
+        gsp:InertialReferenceFrame is an inertial datum defining the precise location and orientation
+        in 3- or 4-dimensional space of a defined ellipsoid (or sphere), or of a Cartesian (3D case),
+        or of a Minkowski (4D case) coordinate system centered in the ellipsoid (or sphere).
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="InertialReferenceFrameType">
+    <complexContent>
+      <extension base="gml:AbstractDatumType">
+        <sequence>
+          <element ref="gsp:celestialBody"  minOccurs="0"/>
+          <element ref="gml:ellipsoid"      minOccurs="0"/>
+          <element ref="gsp:primeDirection" minOccurs="0"/>
+          <!--
+            Departures from gml:GeodetiscDatum:
+            - Ellipsoid became optional in ISO 19111:2019.
+            - Prime meridian interpreted as prime direction.
+            - Elements in different order, from most important to less relevant (for an inertial CRS).
+              This order is also for easier migration if a future GML version declares celestial body.
+          -->
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="celestialBody" type="gsp:CelestialBodyPropertyType">
+    <annotation>
+      <documentation>gsp:celestialBody is an association role to the celestial body used by this inertial datum.</documentation>
+    </annotation>
+  </element>
+  <element name="primeDirection" type="gml:PrimeMeridianPropertyType">
+    <annotation>
+      <documentation>
+        gsp:primeDirection is an association role to the prime meridian of an inertial datum.
+        The prime direction is the direction of the 0° of longitude, identified by a distant feature such as a star.
+      </documentation>
+    </annotation>
+  </element>
+  <complexType name="InertialReferenceFramePropertyType">
+    <annotation>
+      <documentation>
+        gsp:InertialReferenceFramePropertyType is a property type for association roles to a inertial datum,
+        either referencing or containing the definition of that datum.
+      </documentation>
+    </annotation>
+      <sequence minOccurs="0">
+        <element ref="gsp:InertialReferenceFrame"/>
+      </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+
+
+  <!--
+    Coordinate Reference System
+  -->
+  <element name="InertialCRS" type="gsp:InertialCRSType" substitutionGroup="gml:AbstractSingleCRS"/>
+  <complexType name="InertialCRSType">
+    <annotation>
+      <documentation>gsp:InertialCRS is a coordinate reference system with axes having fixed directions relative to stars.</documentation>
+    </annotation>
+    <complexContent>
+      <extension base="gml:AbstractCRSType">
+        <sequence>
+          <choice>
+            <element ref="gml:ellipsoidalCS"/>
+            <element ref="gml:cartesianCS"/>
+            <element ref="gml:sphericalCS"/>
+            <element ref="gsp:minkowskiCS"/>
+          </choice>
+          <element ref="gsp:inertialReferenceFrame"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="minkowskiCS" type="gsp:MinkowskiCSPropertyType">
+    <annotation>
+      <documentation>gsp:minkowskiCS is an association role to the Minkowski coordinate system used by this CRS.</documentation>
+    </annotation>
+  </element>
+  <element name="inertialReferenceFrame" type="gsp:InertialReferenceFramePropertyType">
+    <annotation>
+      <documentation>gsp:inertialReferenceFrame is an association role to the inertial datum used by this CRS.</documentation>
+    </annotation>
+  </element>
+  <complexType name="InertialCRSPropertyType">
+    <annotation>
+      <documentation>gsp:InertialCRSPropertyType is a property type for association roles to a inertial coordinate reference system, either referencing or containing the definition of that reference system.</documentation>
+    </annotation>
+    <sequence minOccurs="0">
+      <element ref="gsp:InertialCRS"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+  </complexType>
+</schema>

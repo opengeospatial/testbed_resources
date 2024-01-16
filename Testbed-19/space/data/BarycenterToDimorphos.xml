@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:Transformation xsi:schemaLocation = "http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+                    xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                    xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                    gml:id             = "BarycenterToDimorphos">
+  <gml:description>
+    This GML file describes the transformation of coordinates from the CRS
+    encoded in `SolarSystemBarycenter.xml` to the CRS encoded in `Dimorphos.xml`.
+  </gml:description>
+  <gml:identifier codeSpace="TB19-D001">BarycenterToDimorphos</gml:identifier>
+  <gml:name>Solar system barycenter to Dimorphos</gml:name>
+  <gml:scope>TestBed 19 demonstration.</gml:scope>
+  <gml:operationVersion>1</gml:operationVersion>
+  <!--
+    For this transformation, we need the time coordinate the be appended to the inertial CRS.
+    We could create separated files, but it is convenient to declare the compound CRS just here.
+  -->
+  <gml:sourceCRS>
+    <gml:CompoundCRS gml:id="SolarSystemCRS">
+      <gml:identifier codeSpace="TB19-D001">SolarSystemCRS</gml:identifier>
+      <gml:name>Solar system barycenter CRS + time</gml:name>
+      <gml:scope>TestBed 19 demonstration.</gml:scope>
+      <gml:componentReferenceSystem xlink:href="SolarSystemBarycenter.xml"/>
+      <gml:componentReferenceSystem xlink:href="Time.xml"/>
+    </gml:CompoundCRS>
+  </gml:sourceCRS>
+  <gml:targetCRS>
+    <gml:CompoundCRS gml:id="DimorphosCRS">
+      <gml:identifier codeSpace="TB19-D001">DimorphosCRS</gml:identifier>
+      <gml:name>Dimorphos CRS + time</gml:name>
+      <gml:scope>TestBed 19 demonstration.</gml:scope>
+      <gml:componentReferenceSystem xlink:href="Dimorphos.xml"/>
+      <gml:componentReferenceSystem xlink:href="Time.xml"/>
+    </gml:CompoundCRS>
+  </gml:targetCRS>
+  <gml:method xlink:href="../standard-schema-proposal/translationByTrajectory.xml#TranslationByTrajectory"/>
+  <gml:parameterValue>
+    <gml:ParameterValue>
+      <gml:valueFile>BarycenterToDimorphos.csv</gml:valueFile>
+      <gml:operationParameter xlink:href="../standard-schema-proposal/translationByTrajectory.xml#TrajectoryFile"/>
+    </gml:ParameterValue>
+  </gml:parameterValue>
+</gml:Transformation>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:OperationMethod xsi:schemaLocation = "http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+                     xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                     xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                     gml:id             = "TranslationByTrajectory">
+
+  <gml:description>
+    Non-relativist time-varying translations defined by a Moving Feature file.
+    This method is applied by coordinate operations transforming coordinate tuples from one reference frame to
+    another reference frame, when the latter is moving along a trajectory with coordinates expressed relatively
+    to the former reference frame. This simple operation method assumes that the two reference frames share the
+    same axis orientations, so no yaw, pitch, or roll is used. The transformation is applied by subtracting the
+    (x,y,z) coordinates interpolated in the file at time t, possibly after conversion from interpolation CRS.
+    The CRS declared in the moving feature file is taken as the interpolation CRS.
+  </gml:description>
+  <gml:identifier codeSpace="OGC">http://www.opengis.net/def/method/OGC/1/200</gml:identifier>
+  <gml:name codeSpace="OGC">Translation by trajectory</gml:name>
+  <gml:remarks>
+    This definition is not yet an OGC standard. It is published for comments.
+  </gml:remarks>
+  <gml:formula>
+    For each (x,y,z,t) source coordinate tuples, interpolate the position in the trajectory at time t.
+    Then, subtract the interpolated position to the source (x,y,z) coordinates and pass the value of t unchanged.
+  </gml:formula>
+  <gml:sourceDimensions>4</gml:sourceDimensions>
+  <gml:targetDimensions>4</gml:targetDimensions>
+  <gml:parameter>
+    <gml:OperationParameter gml:id="TrajectoryFile">
+      <gml:description>
+        Trajectory of the target frame relative to the source frame.
+        Shall be a Moving Feature file in a format defined by OGC: JSON, CSV, XML or netCDF.
+      </gml:description>
+      <gml:identifier codeSpace="OGC">http://www.opengis.net/def/parameter/OGC/1/200</gml:identifier>
+      <gml:name>Trajectory file</gml:name>
+      <gml:remarks>
+        For the Testbed-19 prototype, only Moving Feature CSV encoding is supported.
+      </gml:remarks>
+    </gml:OperationParameter>
+  </gml:parameter>
+</gml:OperationMethod>

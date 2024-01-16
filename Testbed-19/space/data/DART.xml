@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:EngineeringCRS xsi:schemaLocation = "http://www.opengis.net/gml/3.2 https://schemas.opengis.net/gml/3.2.1/coordinateReferenceSystems.xsd"
+                    xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                    xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                    gml:id             = "DART">
+
+  <gml:description>
+    This GML file describes an engineering Coordinate Reference System for the DART spacecraft.
+    The coordinate system is spherical with (relative bearing, altitude, direction) axes.
+  </gml:description>
+  <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:crs:JPL::-135</gml:identifier>
+  <gml:name>DART spacecraft spherical CRS</gml:name>
+  <gml:remarks>
+    The JPL and IAU namespaces used in this file are not for official JPL/IAU codes.
+    Those namespaces are used only for demonstrating what the identifiers may look
+    like if JPL and IAU published CRS definitions as GML objects.
+  </gml:remarks>
+  <gml:scope>For identifying positions of objects relative to DART spacecraft.</gml:scope>
+  <gml:sphericalCS>
+    <gml:SphericalCS gml:id="DART-cs">
+      <gml:identifier codeSpace="TB19-D001">VehicleSpherical3D</gml:identifier>
+      <gml:name>Spherical 3D (clockwise, up, away-from) for vehicle</gml:name>
+      <gml:axis>
+        <!-- Unit: arc-second -->
+        <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9104" gml:id="DART-bearing">
+          <gml:identifier codeSpace="TB19-D001">RelativeBearingAxis</gml:identifier>
+          <gml:name>Relative bearing</gml:name>
+          <gml:axisAbbrev>θ</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="ISO">clockwise</gml:axisDirection>
+          <gml:minimumValue>-180.0</gml:minimumValue>
+          <gml:maximumValue>180.0</gml:maximumValue>
+          <gml:rangeMeaning codeSpace="ISO">wraparound</gml:rangeMeaning>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+      <gml:axis>
+        <!-- Unit: arc-second -->
+        <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9104" gml:id="DART-altitude">
+          <gml:identifier codeSpace="TB19-D001">AltitudeAxis</gml:identifier>
+          <gml:name>Altitude</gml:name>
+          <gml:axisAbbrev>α</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="ISO">up</gml:axisDirection>
+          <gml:minimumValue>-90.0</gml:minimumValue>
+          <gml:maximumValue>90.0</gml:maximumValue>
+          <gml:rangeMeaning codeSpace="ISO">exact</gml:rangeMeaning>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+      <gml:axis>
+        <!-- Unit: kilometre -->
+        <gml:CoordinateSystemAxis uom="urn:ogc:def:uom:EPSG::9036" gml:id="DART-distance">
+          <gml:identifier codeSpace="TB19-D001">DistanceAxis</gml:identifier>
+          <gml:name>Distance</gml:name>
+          <gml:axisAbbrev>D</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="ISO">away-from</gml:axisDirection>
+          <gml:minimumValue>0.0</gml:minimumValue>
+          <gml:rangeMeaning codeSpace="ISO">exact</gml:rangeMeaning>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+    </gml:SphericalCS>
+  </gml:sphericalCS>
+  <gml:engineeringDatum>
+    <gml:EngineeringDatum gml:id="DART-datum">
+      <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:datum:JPL::-135</gml:identifier>
+      <gml:name>DART center of mass</gml:name>
+      <gml:scope>For identifying positions of objects relative to DART spacecraft.</gml:scope>
+    </gml:EngineeringDatum>
+  </gml:engineeringDatum>
+</gml:EngineeringCRS>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gsp:InertialCRS xsi:schemaLocation = "http://www.opengis.net/gsp/1.0 ../standard-schema-proposal/geospatialInSpace.xsd"
+                 xmlns:gsp          = "http://www.opengis.net/gsp/1.0"
+                 xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                 xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                 gml:id             = "DimorphosCRS">
+
+  <gml:description>
+    This GML file describes an inertial Coordinate Reference System (CRS) for the Dimorphos moonlet.
+    Dimorphos is a satellite of the Didymos asteroid, which has a CRS defined in a separated file.
+    Those two CRSs use the same three-dimensional Cartesian coordinate system, but with different
+    origin (not encoded in this file). The axes orientations are fix relative to distant stars.
+  </gml:description>
+  <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:crs:JPL::120065803</gml:identifier>
+  <gml:name codeSpace="JPL:HORIZONS">Dimorphos satellite (inertial)</gml:name>
+  <gml:remarks>
+    This CRS definition uses new objects proposed by Testbed-19 with the "gsp" prefix.
+    The JPL and IAU namespaces used in this file are not for official JPL/IAU codes.
+    Those namespaces are used only for demonstrating what the identifiers may look
+    like if JPL and IAU published CRS definitions as GML objects.
+  </gml:remarks>
+  <gml:scope>For use with the reconstructed trajectory of the Didymos system.</gml:scope>
+
+  <!-- Use the same axis units and orientations than for the solar system. -->
+  <gml:cartesianCS xlink:href="SolarSystemBarycenter.xml#SolarSystemCS"/>
+
+  <gsp:inertialReferenceFrame>
+    <gsp:InertialReferenceFrame gml:id="DimorphosDatum">
+      <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:datum:JPL::120065803</gml:identifier>
+      <gml:name>Dimorphos inertial reference frame</gml:name>
+      <gml:scope>For orbit positionning.</gml:scope>
+      <gsp:celestialBody>
+        <gsp:CelestialBody gml:id="Dimorphos">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:body:JPL::120065803</gml:identifier>
+          <gml:name>Dimorphos</gml:name>
+        </gsp:CelestialBody>
+      </gsp:celestialBody>
+      <gml:ellipsoid>
+        <gsp:TriaxialEllipsoid gml:id="DimorphosEllipsoid">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:ellipsoid:JPL::120065803</gml:identifier>
+          <gml:name>Dimorphos ellipsoid</gml:name>
+          <gml:semiMajorAxis uom="urn:ogc:def:uom:EPSG::9001">88.5</gml:semiMajorAxis>
+          <gml:secondDefiningParameter>
+            <gml:SecondDefiningParameter>
+              <gml:semiMinorAxis uom="urn:ogc:def:uom:EPSG::9001">58</gml:semiMinorAxis>
+            </gml:SecondDefiningParameter>
+          </gml:secondDefiningParameter>
+          <gsp:semiMedianAxis uom="urn:ogc:def:uom:EPSG::9001">87</gsp:semiMedianAxis>
+        </gsp:TriaxialEllipsoid>
+      </gml:ellipsoid>
+      <gsp:primeDirection>
+        <gml:PrimeMeridian gml:id="MarchEquinox">
+          <gml:identifier codeSpace="IAU:MarchEquinox">urn:ogc:def:meridian:IAU::MarchEquinox</gml:identifier>
+          <gml:name>March equinox</gml:name>
+          <gml:greenwichLongitude uom="urn:ogc:def:uom:EPSG::9102">0</gml:greenwichLongitude>
+        </gml:PrimeMeridian>
+      </gsp:primeDirection>
+    </gsp:InertialReferenceFrame>
+  </gsp:inertialReferenceFrame>
+</gsp:InertialCRS>

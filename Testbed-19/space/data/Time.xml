@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:TemporalCRS xsi:schemaLocation = "http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+                 xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                 xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                 gml:id             = "TimeCRS">
+
+  <gml:description>
+    This GML file provides the temporal axis used by all compound CRS in Testbed-19.
+  </gml:description>
+  <gml:identifier codeSpace="TB19-D001">TimeCRS</gml:identifier>
+  <gml:name>Truncated Julian days</gml:name>
+  <gml:scope>TestBed 19 demonstration.</gml:scope>
+  <gml:timeCS>
+    <gml:TimeCS gml:id="TimeCS">
+      <gml:identifier codeSpace="TB19-D001">TimeCS</gml:identifier>
+      <gml:name>Days</gml:name>
+      <gml:axis>
+        <gml:CoordinateSystemAxis gml:id="TimeAxis" uom="http://www.opengis.net/def/uom/UCUM/0/d">
+          <gml:identifier codeSpace="TB19-D001">TimeAxis</gml:identifier>
+          <gml:name>Time</gml:name>
+          <gml:axisAbbrev>t</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="ISO">future</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+    </gml:TimeCS>
+  </gml:timeCS>
+  <gml:temporalDatum>
+    <gml:TemporalDatum gml:id="JulianEpoch">
+      <gml:identifier codeSpace="TB19-D001">JulianEpoch</gml:identifier>
+      <gml:name>Truncated Julian epoch</gml:name>
+      <gml:scope>TestBed 19 demonstration.</gml:scope>
+      <gml:origin>1968-05-24T00:00:00Z</gml:origin>
+    </gml:TemporalDatum>
+  </gml:temporalDatum>
+</gml:TemporalCRS>

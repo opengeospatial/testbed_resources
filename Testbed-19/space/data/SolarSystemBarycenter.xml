@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gsp:InertialCRS xsi:schemaLocation = "http://www.opengis.net/gsp/1.0 ../standard-schema-proposal/geospatialInSpace.xsd"
+                 xmlns:gsp          = "http://www.opengis.net/gsp/1.0"
+                 xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                 xmlns:gmd          = "http://www.isotc211.org/2005/gmd"
+                 xmlns:gco          = "http://www.isotc211.org/2005/gco"
+                 xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                 gml:id             = "SolarSystemCRS">
+
+  <gml:description>
+    This GML file describes an inertial Coordinate Reference System (CRS) for the barycenter of the solar system.
+    The origin is not in the center of any physical body such as the Sun or a planet.
+    The axes orientations are fix relative to distant stars.
+  </gml:description>
+  <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:crs:JPL::0</gml:identifier>
+  <gml:name codeSpace="JPL:HORIZONS">Solar System Barycenter (inertial)</gml:name>
+  <gml:remarks>
+    This CRS definition uses new objects proposed by Testbed-19 with the "gsp" prefix.
+    The JPL and IAU namespaces used in this file are not for official JPL/IAU codes.
+    Those namespaces are used only for demonstrating what the identifiers may look
+    like if JPL and IAU published CRS definitions as GML objects.
+  </gml:remarks>
+  <gml:domainOfValidity>
+    <gmd:EX_Extent>
+      <gmd:description>
+        <gco:CharacterString>Solar system.</gco:CharacterString>
+      </gmd:description>
+    </gmd:EX_Extent>
+  </gml:domainOfValidity>
+  <gml:scope>For use with trajectories in the solar system.</gml:scope>
+  <gml:cartesianCS>
+    <gml:CartesianCS gml:id="SolarSystemCS">
+      <!-- This coordinate system is reused for all inertial CRS in this directory. -->
+      <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:cs:JPL::ICRF</gml:identifier>
+      <gml:name>Cartesian 3D CS (km).</gml:name>
+      <gml:axis>
+        <gml:CoordinateSystemAxis gml:id="axisX" uom="urn:ogc:def:uom:EPSG::9036">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:axis:JPL::ICRF-X</gml:identifier>
+          <gml:name>X</gml:name>
+          <gml:axisAbbrev>X</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="JPL:HORIZONS">geocentricX</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+      <gml:axis>
+        <gml:CoordinateSystemAxis gml:id="axisY" uom="urn:ogc:def:uom:EPSG::9036">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:axis:JPL::ICRF-Y</gml:identifier>
+          <gml:name>Y</gml:name>
+          <gml:axisAbbrev>Y</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="JPL:HORIZONS">geocentricY</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+      <gml:axis>
+        <gml:CoordinateSystemAxis gml:id="axisZ" uom="urn:ogc:def:uom:EPSG::9036">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:axis:JPL::ICRF-Z</gml:identifier>
+          <gml:name>Z</gml:name>
+          <gml:axisAbbrev>Z</gml:axisAbbrev>
+          <gml:axisDirection codeSpace="JPL:HORIZONS">geocentricZ</gml:axisDirection>
+        </gml:CoordinateSystemAxis>
+      </gml:axis>
+    </gml:CartesianCS>
+  </gml:cartesianCS>
+  <gsp:inertialReferenceFrame>
+    <gsp:InertialReferenceFrame gml:id="SolarSystemDatum">
+      <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:datum:JPL::0</gml:identifier>
+      <gml:name>Solar System Barycenter inertial reference frame</gml:name>
+      <gml:scope>For orbit positionning in the solar system.</gml:scope>
+      <gsp:celestialBody>
+        <gsp:CelestialBody gml:id="SolarSystem">
+          <gml:identifier codeSpace="JPL:HORIZONS">urn:ogc:def:body:JPL::0</gml:identifier>
+          <gml:name>Solar System Barycenter</gml:name>
+        </gsp:CelestialBody>
+      </gsp:celestialBody>
+      <gsp:primeDirection>
+        <gml:PrimeMeridian gml:id="MarchEquinox">
+          <gml:identifier codeSpace="IAU:MarchEquinox">urn:ogc:def:meridian:IAU::MarchEquinox</gml:identifier>
+          <gml:name>March equinox</gml:name>
+          <gml:greenwichLongitude uom="urn:ogc:def:uom:EPSG::9102">0</gml:greenwichLongitude>
+        </gml:PrimeMeridian>
+      </gsp:primeDirection>
+    </gsp:InertialReferenceFrame>
+  </gsp:inertialReferenceFrame>
+</gsp:InertialCRS>

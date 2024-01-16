@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gml:ConcatenatedOperation xsi:schemaLocation = "http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+                           xmlns:gml          = "http://www.opengis.net/gml/3.2"
+                           xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:xlink        = "http://www.w3.org/1999/xlink"
+                           gml:id             = "DimorphosToDART">
+  <gml:description>
+    This GML file describes the transformation of coordinates from the
+    CRS encoded in `Dimorphos.xml` to the CRS encoded in `DART.xml`.
+  </gml:description>
+  <gml:identifier codeSpace="TB19-D001">DimorphosToDART</gml:identifier>
+  <gml:name>Dimorphos to DART</gml:name>
+  <gml:scope>TestBed 19 demonstration.</gml:scope>
+  <gml:operationVersion>1</gml:operationVersion>
+  <gml:sourceCRS xlink:href="BarycenterToDimorphos.xml#DimorphosCRS"/>
+  <gml:targetCRS>
+    <!-- The target is not "BarycenterToDART.xml#DART" because the CS type is different. -->
+    <gml:CompoundCRS gml:id="DART">
+      <gml:identifier codeSpace="TB19-D001">DART</gml:identifier>
+      <gml:name>DART CRS + time</gml:name>
+      <gml:scope>TestBed 19 demonstration.</gml:scope>
+      <gml:componentReferenceSystem xlink:href="DART.xml"/>
+      <gml:componentReferenceSystem xlink:href="Time.xml"/>
+    </gml:CompoundCRS>
+  </gml:targetCRS>
+
+  <!--
+    The first step below should actually be "Dimorphos to barycenter", but the software
+    should detect, by inspection of the source and target CRS, that it needs to use the
+    inverse of that operation.
+  -->
+  <gml:coordOperation xlink:href="BarycenterToDimorphos.xml"/>
+  <gml:coordOperation xlink:href="BarycenterToDART.xml"/>
+  <!-- Apache SIS will add automatically a conversion from DART (Cartesian) to DART (Spherical),
+       based on an inspection of target CRS. This feature is not guaranteed to be reproduced by
+       all implementations however.  -->
+</gml:ConcatenatedOperation>
