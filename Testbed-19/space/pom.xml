@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Maven project configuration file. To run this project, execute the following from command line:
+
+  mvn compile
+  mvn exec:java
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.opengis.testbed</groupId>
+  <artifactId>T19-space</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>OGC TestBed 19 tasks D001 and D002</name>
+  <url>https://gitlab.ogc.org/ogc/T19-Geospatial_in_Space</url>
+  <description>
+    Demonstration project for OGC TestBed 19 tasks D001 and D002 —
+    Non-Terresterial Geospatial Engineering Report and Extraterrestrial GeoTIFF.
+  </description>
+  <developers>
+    <developer>
+      <name>Martin Desruisseaux</name>
+      <id>desruisseaux</id>
+      <email>martin.desruisseaux@geomatys.com</email>
+      <organization>Geomatys</organization>
+      <organizationUrl>https://www.geomatys.com</organizationUrl>
+      <timezone>+1</timezone>
+      <roles>
+        <role>Java developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <exec.mainClass>org.opengis.testbed.T19D002.Demo</exec.mainClass>
+  </properties>
+
+  <!--
+    This demo requires a local build of https://github.com/Geomatys/sis/tree/TestBed-19
+    Above branch is currently not deployed on snapshot repository, because it is an experiment.
+  -->
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.sis.core</groupId>
+      <artifactId>sis-referencing</artifactId>
+      <version>2.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.sis.storage</groupId>
+      <artifactId>sis-geotiff</artifactId>
+      <version>2.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>4.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.locationtech.jts</groupId>
+      <artifactId>jts-core</artifactId>
+      <version>1.19.0</version>
+    </dependency>
+  </dependencies>
+</project>
