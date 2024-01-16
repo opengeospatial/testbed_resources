@@ -34,11 +34,11 @@
       <gml:componentReferenceSystem xlink:href="Time.xml"/>
     </gml:CompoundCRS>
   </gml:targetCRS>
-  <gml:method xlink:href="../standard-schema-proposal/translationByTrajectory.xml#TranslationByTrajectory"/>
+  <gml:method xlink:href="../../standard-schema-proposal/translationByTrajectory.xml#TranslationByTrajectory"/>
   <gml:parameterValue>
     <gml:ParameterValue>
       <gml:valueFile>BarycenterToDimorphos.csv</gml:valueFile>
-      <gml:operationParameter xlink:href="../standard-schema-proposal/translationByTrajectory.xml#TrajectoryFile"/>
+      <gml:operationParameter xlink:href="../../standard-schema-proposal/translationByTrajectory.xml#TrajectoryFile"/>
     </gml:ParameterValue>
   </gml:parameterValue>
 </gml:Transformation>
