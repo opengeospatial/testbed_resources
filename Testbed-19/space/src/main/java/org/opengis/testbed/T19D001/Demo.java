@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.time.Instant;
 
 // Implementation-neutral interfaces (GeoAPI)
+import org.opengis.referencing.datum.PixelInCell;
 import org.opengis.referencing.operation.MathTransform;
 import org.opengis.referencing.operation.CoordinateOperation;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
@@ -19,7 +20,7 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 import org.apache.sis.xml.XML;
 import org.apache.sis.referencing.CRS;
 import org.apache.sis.referencing.crs.DefaultTemporalCRS;
-//import org.apache.sis.referencing.operation.transform.MathTransforms;
+import org.apache.sis.referencing.operation.transform.MathTransforms;
 import org.apache.sis.storage.DataStore;
 import org.apache.sis.storage.DataStores;
 import org.apache.sis.storage.GridCoverageResource;
@@ -100,13 +101,13 @@ public class Demo {
                  *
                  * TODO: does not work because the datum name in the GeoTIFF image is lost.
                  */
-//              CoordinateOperation toGeoTIFF = CRS.findOperation(dimorphosToDART.getTargetCRS(), crs, null);
-//              mt = MathTransforms.concatenate(mt, toGeoTIFF.getMathTransform());
+                CoordinateOperation toGeoTIFF = CRS.findOperation(dimorphosToDART.getTargetCRS(), crs, null);
+                mt = MathTransforms.concatenate(mt, toGeoTIFF.getMathTransform());
                 /*
                  * Finally, complete to the conversion from GeoTIFF to pixel coordinates.
                  * We will transform DirectPosition instead of array because the number of dimensions changes.
                  */
-//              mt = MathTransforms.concatenate(mt, firstImage.getGridGeometry().getGridToCRS(PixelInCell.CELL_CENTER));
+                mt = MathTransforms.concatenate(mt, firstImage.getGridGeometry().getGridToCRS(PixelInCell.CELL_CENTER));
             }
             System.out.println("Dimorphos to pixel coordinates:");
             System.out.println(mt.transform(new GeneralDirectPosition(coordinates), null));
