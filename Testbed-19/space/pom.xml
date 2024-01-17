@@ -42,6 +42,17 @@
     <exec.mainClass>org.opengis.testbed.T19D002.Demo</exec.mainClass>
   </properties>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.11.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
   <!--
     This demo requires a local build of https://github.com/Geomatys/sis/tree/TestBed-19
     Above branch is currently not deployed on snapshot repository, because it is an experiment.
