@@ -69,23 +69,27 @@ public class Demo {
          */
         var timeCRS = DefaultTemporalCRS.castOrCopy(CRS.getTemporalComponent(dimorphosToDART.getSourceCRS()));
         /*
-         * Set a coordinates on a bright spot of the moonlet in coordinates as seeen from DART.
-         * Those coordinates come from the TIFF image in Testbed-19 D001 example.
-         * Then, transform to coordinates relative to Dimorphos.
+         * Coordinates of a bright spot on the moonlet in coordinates as seen from DART.
+         * Those coordinates were estimated manually from the Testbed-19 D001 TIFF image.
+         * The time coordinate is the latest time available in "BarycenterToDART.csv",
+         * which is 2022-09-29 16:00:00. Transform to coordinates relative to Dimorphos.
          */
         double[] coordinates = {
             24, 18,                         // Pixel coordinates in arc-seconds from image center.
             920,                            // Distance between DART and Dimorphos (km).
             timeCRS.toValue(Instant.parse("2022-09-29T16:00:00Z"))
         };
-        MathTransform mt = dimorphosToDART.getMathTransform();
-        mt.inverse().transform(coordinates, 0, coordinates, 0, 1);
+        MathTransform forward = dimorphosToDART.getMathTransform();
+        MathTransform reverse = forward.inverse();
+        reverse.transform(coordinates, 0, coordinates, 0, 1);
         /*
          * Prints result. The result is a bit far (about 50,000 km) because we
          * did not adjusted the data for being very close to the impact time.
          */
+        System.out.println();
         System.out.println("Transformation of (24″, 18″, 920 km):");
         System.out.println(Arrays.toString(coordinates));
+        System.out.println();
         /*
          * If the GeoTIFF file exists, do the transformation in the opposite way (from Dimorphos to DART),
          * but with the operation chain completed up to pixel coordinates.
@@ -93,24 +97,26 @@ public class Demo {
         if (GEOTIFF_IMAGE.exists()) {
             try (DataStore ds = DataStores.open(GEOTIFF_IMAGE)) {
                 GridCoverageResource firstImage = (GridCoverageResource) ds.findResource("1");
+                System.out.println("TIFF image size:");
+                System.out.println(firstImage.getGridGeometry().getExtent());
                 CoordinateReferenceSystem crs = firstImage.getGridGeometry().getCoordinateReferenceSystem();
                 /*
                  * Ask SIS to find the operation from the target CRS of the previous operation chain
                  * and the CRS of the GeoTIFF image. It should be the identity transform, because we
                  * have set the image CRS to the same EngineeringCRS in D001.
-                 *
-                 * TODO: does not work because the datum name in the GeoTIFF image is lost.
                  */
                 CoordinateOperation toGeoTIFF = CRS.findOperation(dimorphosToDART.getTargetCRS(), crs, null);
-                mt = MathTransforms.concatenate(mt, toGeoTIFF.getMathTransform());
+                forward = MathTransforms.concatenate(forward, toGeoTIFF.getMathTransform());
                 /*
                  * Finally, complete to the conversion from GeoTIFF to pixel coordinates.
                  * We will transform DirectPosition instead of array because the number of dimensions changes.
                  */
-                mt = MathTransforms.concatenate(mt, firstImage.getGridGeometry().getGridToCRS(PixelInCell.CELL_CENTER));
+                forward = MathTransforms.concatenate(forward, firstImage.getGridGeometry().getGridToCRS(PixelInCell.CELL_CENTER));
             }
-            System.out.println("Dimorphos to pixel coordinates:");
-            System.out.println(mt.transform(new GeneralDirectPosition(coordinates), null));
+            System.out.println("Dimorphos to pixel coordinates on the image seen by DART:");
+            System.out.println(forward.transform(new GeneralDirectPosition(coordinates), null));
+        } else {
+            System.out.println("TIFF image not found. To generate it, execute the D002 demo.");
         }
     }
 }

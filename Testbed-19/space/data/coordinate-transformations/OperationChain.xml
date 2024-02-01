@@ -10,7 +10,7 @@
   </gml:description>
   <gml:identifier codeSpace="TB19-D001">DimorphosToDART</gml:identifier>
   <gml:name>Dimorphos to DART</gml:name>
-  <gml:scope>TestBed 19 demonstration.</gml:scope>
+  <gml:scope>Testbed 19 demonstration.</gml:scope>
   <gml:operationVersion>1</gml:operationVersion>
   <gml:sourceCRS xlink:href="BarycenterToDimorphos.xml#DimorphosCRS"/>
   <gml:targetCRS>
@@ -18,7 +18,7 @@
     <gml:CompoundCRS gml:id="DART">
       <gml:identifier codeSpace="TB19-D001">DART</gml:identifier>
       <gml:name>DART CRS + time</gml:name>
-      <gml:scope>TestBed 19 demonstration.</gml:scope>
+      <gml:scope>Testbed 19 demonstration.</gml:scope>
       <gml:componentReferenceSystem xlink:href="DART.xml"/>
       <gml:componentReferenceSystem xlink:href="Time.xml"/>
     </gml:CompoundCRS>

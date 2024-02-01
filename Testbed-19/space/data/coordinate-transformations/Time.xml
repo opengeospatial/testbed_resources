@@ -10,7 +10,7 @@
   </gml:description>
   <gml:identifier codeSpace="TB19-D001">TimeCRS</gml:identifier>
   <gml:name>Truncated Julian days</gml:name>
-  <gml:scope>TestBed 19 demonstration.</gml:scope>
+  <gml:scope>Testbed 19 demonstration.</gml:scope>
   <gml:timeCS>
     <gml:TimeCS gml:id="TimeCS">
       <gml:identifier codeSpace="TB19-D001">TimeCS</gml:identifier>
@@ -29,7 +29,7 @@
     <gml:TemporalDatum gml:id="JulianEpoch">
       <gml:identifier codeSpace="TB19-D001">JulianEpoch</gml:identifier>
       <gml:name>Truncated Julian epoch</gml:name>
-      <gml:scope>TestBed 19 demonstration.</gml:scope>
+      <gml:scope>Testbed 19 demonstration.</gml:scope>
       <gml:origin>1968-05-24T00:00:00Z</gml:origin>
     </gml:TemporalDatum>
   </gml:temporalDatum>

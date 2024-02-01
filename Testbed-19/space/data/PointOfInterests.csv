@@ -1,0 +1,18 @@
+#
+# Coordinates of a point of interest relative to DART.
+# Axes are:
+#
+#  - Relative bearing (arc-seconds)
+#  - Altitude (arc-seconds)
+#  - Distance between DART and Dimorphos (kilometres)
+#  - Truncated Julian days (since 1968-05-24 UTC)
+
+# Coordinates of a bright spot on the moonlet in coordinates as seen from DART.
+# Those coordinates were estimated manually from the Testbed-19 D001 TIFF image.
+# The time coordinate is the latest time available in "BarycenterToDART.csv",
+# which is 2022-09-29 16:00:00.
+24.0, 18.0, 920.0, 19851.666666666667
+
+# Same coordinated as above, but a few days before. The 920 km distance
+# is not correct, but this is only for demonstrating the effect of time.
+24.0, 18.0, 920.0, 19848

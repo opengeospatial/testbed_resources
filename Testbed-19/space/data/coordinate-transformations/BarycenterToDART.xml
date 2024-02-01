@@ -12,7 +12,7 @@
   </gml:description>
   <gml:identifier codeSpace="TB19-D001">BarycenterToDART</gml:identifier>
   <gml:name>Solar system barycenter to DART</gml:name>
-  <gml:scope>TestBed 19 demonstration.</gml:scope>
+  <gml:scope>Testbed 19 demonstration.</gml:scope>
   <gml:operationVersion>1</gml:operationVersion>
   <!--
     For this transformation, we need the time coordinate the be appended to the inertial CRS.
@@ -22,7 +22,7 @@
     <gml:CompoundCRS gml:id="SolarSystemCRS">
       <gml:identifier codeSpace="TB19-D001">SolarSystemCRS</gml:identifier>
       <gml:name>Solar system barycenter CRS + time</gml:name>
-      <gml:scope>TestBed 19 demonstration.</gml:scope>
+      <gml:scope>Testbed 19 demonstration.</gml:scope>
       <gml:componentReferenceSystem xlink:href="SolarSystemBarycenter.xml"/>
       <gml:componentReferenceSystem xlink:href="Time.xml"/>
     </gml:CompoundCRS>
@@ -31,7 +31,7 @@
     <gml:CompoundCRS gml:id="DART">
       <gml:identifier codeSpace="TB19-D001">DART</gml:identifier>
       <gml:name>DART CRS (Cartesian) + time</gml:name>
-      <gml:scope>TestBed 19 demonstration.</gml:scope>
+      <gml:scope>Testbed 19 demonstration.</gml:scope>
       <gml:componentReferenceSystem>
         <gml:EngineeringCRS gml:id="DART-3D">
           <gml:identifier codeSpace="TB19-D001">DART-3D</gml:identifier>
